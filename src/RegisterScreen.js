@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, TextInput, Image, Button, ScrollView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { Feather, MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
+import { theme } from './theme/theme';
 
 
 
@@ -11,18 +12,22 @@ const RegisterScreen = ({ navigation }) => {
         // console.log({username,email,company,password,confirmPassword})
         if (!username || !email || !company || !password || !confirmPassword) {
             alert("please provide all the requiremnets")
-        } else {
-                navigation.navigate('Login')
-            //   alert("Successfully registered")
+        }
+        else if (password.length < 5) {
+            alert("password should be more than 5")
+
+        }
+        else if (password != confirmPassword) {
+
+            alert("password doesn't match")
+        }
+
+        else {
+            navigation.navigate('Login')
+
         }
     }
 
-    const confirmationPassword = () => {
-        if(password!=confirmPassword){
-        //   <Text>password doesnt match</Text>
-            alert("password doesnt match")
-        }
-    }
 
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -110,9 +115,8 @@ const RegisterScreen = ({ navigation }) => {
                     <TouchableOpacity style={styles.touchableOpacityStyle}
                         // onPress={() => registerUser()}
                         onPress={() => {
-                            registerUser(),
-                            confirmationPassword()
-                          
+                            registerUser()
+
                         }}
 
                     >
@@ -145,12 +149,14 @@ const styles = StyleSheet.create({
 
     },
     container: {
-        marginTop: 30
+        // marginTop: 30
     },
     iconStyle: {
         fontSize: 25,
         alignSelf: 'center',
-        marginHorizontal: 15
+        marginHorizontal: 15,
+        color: theme.color.primaryColor
+
     },
     imageStyle: {
         height: 250,
@@ -166,7 +172,7 @@ const styles = StyleSheet.create({
     //     width: "30%"
     // },
     touchableOpacityStyle: {
-        backgroundColor: '#24A0ED',
+        backgroundColor: theme.color.primaryColor,
         marginTop: 15,
         borderRadius: 15,
         alignSelf: "center",
