@@ -30,7 +30,7 @@ const navigator = createStackNavigator({
   Landing:Landingscreen
 },
 {
-  initialRouteName:'Register',
+  initialRouteName:'Landing',
   defaultNavigationOptions:{
     header: null
   }

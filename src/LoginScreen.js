@@ -24,9 +24,18 @@ import {theme} from './theme/theme';
 
 const LoginScreen = ({ navigation }) => {
 
+    
+    const isEmailValid=(email)=> {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return reg.test(email) == 0;
+      }
+
     const registerUser = () => {
         if ( !email || !password ) {
             alert("please provide all the requiremnets")
+        }
+        else if (isEmailValid(email)){
+            alert("email not valid")
         }
         else if (password.length < 5) {
             alert("password should be more than 5 characters")
@@ -47,10 +56,10 @@ const LoginScreen = ({ navigation }) => {
 
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView>
-                 {/* <View style={styles.container}> */}
-
+                            {/* IMAGE PORTION */}
                     <Image style={styles.imageStyle} source={theme.images.bannerImage} />
 
+                            {/* TEXT INPUTS  */}
                     <View style={styles.textInputContainer}>
                         <View style={styles.backgroundStyle}>
                             <MaterialCommunityIcons name="email-outline" size={25} style={styles.iconStyle} />
@@ -78,10 +87,12 @@ const LoginScreen = ({ navigation }) => {
                         </View>
                     </View>
 
+                        {/* FORGOT PASSWORD PORTION */}
                     <TouchableOpacity>
-                    <Text style={styles.textStyle}>Forget password?</Text> 
+                    <Text style={styles.textStyle}>Forgot password?</Text> 
                     </TouchableOpacity>
 
+                    {/* LOGIN AND FACEBOOK BUTTONS */}
                     <TouchableOpacity style={styles.firstButtonStyle}
                         onPress={() => {
                             registerUser()
@@ -89,15 +100,14 @@ const LoginScreen = ({ navigation }) => {
                         <Text style={styles.firstButton}>LOGIN</Text>
                     </TouchableOpacity>
 
-                    {/* <View style={styles.loginfacebookstyle}> */}
                     <TouchableOpacity style={styles.secondButtonStyle}
                         onPress={() => {
                             registerUser()
                         }}>
-                             <Entypo name="facebook-with-circle" size={25} style={styles.facebookiconstyle}/>
+                        <Entypo name="facebook-with-circle"  style={styles.facebookiconstyle}/>
                         <Text style={styles.secondButton}>Login Via Facebook</Text>
                     </TouchableOpacity>
-
+                            {/* SIGN UP PORTION */}
                     <View style={{flexDirection:"row",alignSelf:"center" , marginTop:2}}>
                         <Text>New to App?</Text>
                         <TouchableOpacity>
