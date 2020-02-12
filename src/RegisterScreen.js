@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, TextInput, Image, Button, ScrollView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { Feather, MaterialIcons, FontAwesome, Ionicons } from '@expo/vector-icons';
 import { theme } from './theme/theme';
+import api from './api/api'
+import ErrorComponent from './components/ErrorComponent';
 
 
 
@@ -23,17 +25,48 @@ const RegisterScreen = ({ navigation }) => {
         }
 
         else {
-            navigation.navigate('Login')
+           
+            registerApi(username,email,company,password)
 
         }
     }
 
 
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [company, setCompany] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const [username, setUsername] = useState('tayyaba')
+    const [email, setEmail] = useState('tayyaba@test.com')
+    const [company, setCompany] = useState('Zenveus')
+    const [password, setPassword] = useState('123456')
+    const [confirmPassword, setConfirmPassword] = useState('123456')
+    const [apiResponse, setApiResponse] = useState({})
+    const [errorMessage,setErrorMessage] = useState('')
+
+    const registerApi = async (username,email,company,password,confirmPassword) => {
+        setErrorMessage('')
+        console.log(`${email} ${username} ${password} ${company} `)
+        
+        try {
+            const response = await api.post('/signup', {
+                
+                email: email,
+                password: password, 
+                userName:username,                
+                firstName: `test`,
+                lastName: `test`,
+                company:company,
+                
+                
+            });
+            console.log("Response is", response.data)
+            // console.log("Response is", apiResponse)
+            setApiResponse(response.data);
+            navigation.navigate('Login')
+            setErrorMessage('')
+        }
+        catch (error) {
+            console.log(error.response.data.error)
+            setErrorMessage(error.response.data.error);
+        }
+    }
 
     return (
 
@@ -109,9 +142,9 @@ const RegisterScreen = ({ navigation }) => {
                         </View>
 
                     </View>
-                    {/* <View style={styles.fixToText}>
-                    <Button title="SIGN UP" onPress={() => null} ></Button>
-                </View> */}
+                  
+                          {/* <Text style={{alignSelf:"center", color:'red'}}> {errorMessage} </Text> */}
+                         <View><ErrorComponent error={errorMessage} /></View> 
                     <TouchableOpacity style={styles.touchableOpacityStyle}
                         // onPress={() => registerUser()}
                         onPress={() => {
@@ -122,6 +155,7 @@ const RegisterScreen = ({ navigation }) => {
                     >
                         <Text style={styles.buttonTextStyle}>SIGN UP</Text>
                     </TouchableOpacity>
+          
 
                 </View>
             </ScrollView>
@@ -173,7 +207,7 @@ const styles = StyleSheet.create({
     // },
     touchableOpacityStyle: {
         backgroundColor: theme.color.primaryColor,
-        marginTop: 15,
+        marginTop: 5,
         borderRadius: 15,
         alignSelf: "center",
         width: "40%",

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { theme } from './theme/theme';
 
-const Landingscreen = ({navigation}) => {
+const Landingscreen = ({ navigation }) => {
     return (
         <View>
             {/* IMAGE PORTION */}
@@ -26,7 +26,7 @@ const Landingscreen = ({navigation}) => {
             </View>
 
             <TouchableOpacity>
-                <Text style={{alignSelf:"center" ,marginTop:5,color:theme.color.primaryColor}}>
+                <Text style={{ alignSelf: "center", marginTop: 5, color: theme.color.primaryColor }}>
                     NEED ASSISTANCE?
                 </Text>
             </TouchableOpacity>

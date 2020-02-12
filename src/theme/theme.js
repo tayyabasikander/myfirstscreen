@@ -12,4 +12,4 @@ const theme = {
     color,
     images
 }
-export {theme}
+export { theme }

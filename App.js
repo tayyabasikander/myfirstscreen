@@ -22,12 +22,14 @@ import { createStackNavigator } from 'react-navigation-stack';
 import LoginScreen from './src/LoginScreen';
 import LandingScreen from './src/LandingScreen';
 import Landingscreen from './src/LandingScreen';
+import ForgotPassword from './src/ForgotPassword'
 
 
 const navigator = createStackNavigator({
   Register:  RegisterScreen,
   Login: LoginScreen,   
-  Landing:Landingscreen
+  Landing:Landingscreen,
+  ForgotPass:ForgotPassword
 },
 {
   initialRouteName:'Landing',

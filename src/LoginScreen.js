@@ -1,120 +1,132 @@
 import React, { useState } from 'react';
-import {  View, Text, StyleSheet, TextInput, Image,  ScrollView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import {  Ionicons,MaterialCommunityIcons,Entypo} from '@expo/vector-icons';
+import { View, Text, StyleSheet, TextInput, Image, ScrollView, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 import { round } from 'react-native-reanimated';
-import {theme} from './theme/theme';
-
-// const registerUser = (navigation) => {
-//     // const registerUser = () => {
-//     // console.log({username,email,company,password,confirmPassword})
-//     if ( !email || !password ) {
-//         alert("please provide all the requiremnets")
-//     }
-//     else if (password.length < 5) {
-//         alert("password should be more than 5 characters")
-
-//     }
-//     else {
-//         navigation.navigate('Register')
-
-//     }
-// }
-
-
+import { theme } from './theme/theme';
+import api from './api/api';
+import ErrorComponent from './components/ErrorComponent'
 
 const LoginScreen = ({ navigation }) => {
 
     
-    const isEmailValid=(email)=> {
+
+    const isEmailValid = (email) => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         return reg.test(email) == 0;
-      }
+    }
 
     const registerUser = () => {
-        if ( !email || !password ) {
+        if (!email || !password) {
             alert("please provide all the requiremnets")
         }
-        else if (isEmailValid(email)){
+        else if (isEmailValid(email)) {
             alert("email not valid")
         }
         else if (password.length < 5) {
             alert("password should be more than 5 characters")
-    
+
         }
         else {
-            navigation.navigate('Landing')
-    
+            loginApi(email,password)
+        
+            // console.log(apiResponse)
         }
     }
-    
 
-   
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('test@test.com')
+    const [password, setPassword] = useState('123456')
+    const [apiResponse, setApiResponse] = useState({})
+    const [errorMessage,setErrorMessage] = useState('')
+
+    const loginApi = async (email,password) => {
+        setErrorMessage('')
+        try {
+            const response = await api.post('/login', {
+                email: email,
+                password: password
+            });
+            console.log("Response is", response.data)
+            // console.log("Response is", apiResponse)
+            setApiResponse(response.data);
+            setErrorMessage('')
+            navigation.navigate('Landing')
+        }
+        catch (error) {
+            console.log(error.response.data.message)
+            setErrorMessage(error.response.data.message);
+           
+        }
+    }
 
     return (
 
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView>
-                            {/* IMAGE PORTION */}
-                    <Image style={styles.imageStyle} source={theme.images.bannerImage} />
+                {/* IMAGE PORTION */}
+                <Image style={styles.imageStyle} source={theme.images.bannerImage} />
 
-                            {/* TEXT INPUTS  */}
-                    <View style={styles.textInputContainer}>
-                        <View style={styles.backgroundStyle}>
-                            <MaterialCommunityIcons name="email-outline" size={25} style={styles.iconStyle} />
-                            <TextInput
-                                autoCapitalize="none"
-                                placeholder="Enter user email"
-                                autoCorrect={false}
-                                value={email}
-                                onChangeText={(x) => setEmail(x)}
-                                style={styles.input}
-                            ></TextInput>
-                        </View>
-
-                        <View style={styles.backgroundStyle}>
-                            <Ionicons name="md-unlock" size={25} style={styles.iconStyle} />
-                            <TextInput
-                                autoCapitalize="none"
-                                placeholder="Enter your password"
-                                autoCorrect={false}
-                                secureTextEntry={true}
-                                value={password}
-                                onChangeText={(x) => setPassword(x)}
-                                style={styles.input}
-                            ></TextInput>
-                        </View>
+                {/* TEXT INPUTS  */}
+                <View style={styles.textInputContainer}>
+                    <View style={styles.backgroundStyle}>
+                        <MaterialCommunityIcons name="email-outline" size={25} style={styles.iconStyle} />
+                        <TextInput
+                            autoCapitalize="none"
+                            placeholder="Enter user email"
+                            autoCorrect={false}
+                            value={email}
+                            onChangeText={(x) => setEmail(x)}
+                            style={styles.input}
+                        ></TextInput>
                     </View>
 
-                        {/* FORGOT PASSWORD PORTION */}
+                    <View style={styles.backgroundStyle}>
+                        <Ionicons name="md-unlock" size={25} style={styles.iconStyle} />
+                        <TextInput
+                            autoCapitalize="none"
+                            placeholder="Enter your password"
+                            autoCorrect={false}
+                            secureTextEntry={true}
+                            value={password}
+                            onChangeText={(x) => setPassword(x)}
+                            style={styles.input}
+                        ></TextInput>
+                    </View>
+                </View>
+
+                {/* FORGOT PASSWORD PORTION */}
+                <TouchableOpacity
+                 onPress={()=>
+                 navigation.navigate('ForgotPass')}
+                 >
+                    <Text style={styles.textStyle}>Forgot password?</Text>
+                </TouchableOpacity>
+
+                {/* Error component */}
+                <View><ErrorComponent error={errorMessage} /></View> 
+
+                {/* LOGIN AND FACEBOOK BUTTONS */}
+                <TouchableOpacity style={styles.firstButtonStyle}
+                    onPress={() => {
+                        registerUser()
+                    }}>
+                    <Text style={styles.firstButton}>LOGIN</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.secondButtonStyle}
+                    onPress={() => {
+
+                    }}>
+                    <Entypo name="facebook-with-circle" style={styles.facebookiconstyle} />
+                    <Text style={styles.secondButton}>Login Via Facebook</Text>
+                </TouchableOpacity>
+                {/* SIGN UP PORTION */}
+                <View style={{ flexDirection: "row", alignSelf: "center", marginTop: 2 }}>
+                    <Text>New to App?</Text>
                     <TouchableOpacity>
-                    <Text style={styles.textStyle}>Forgot password?</Text> 
+                        <Text>Sign Up</Text>
                     </TouchableOpacity>
-
-                    {/* LOGIN AND FACEBOOK BUTTONS */}
-                    <TouchableOpacity style={styles.firstButtonStyle}
-                        onPress={() => {
-                            registerUser()
-                        }}>
-                        <Text style={styles.firstButton}>LOGIN</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.secondButtonStyle}
-                        onPress={() => {
-                            registerUser()
-                        }}>
-                        <Entypo name="facebook-with-circle"  style={styles.facebookiconstyle}/>
-                        <Text style={styles.secondButton}>Login Via Facebook</Text>
-                    </TouchableOpacity>
-                            {/* SIGN UP PORTION */}
-                    <View style={{flexDirection:"row",alignSelf:"center" , marginTop:2}}>
-                        <Text>New to App?</Text>
-                        <TouchableOpacity>
-                            <Text>Sign Up</Text>
-                        </TouchableOpacity>
-                    </View>
-                    {/* </View> */}
+                </View>
+                {/* </View> */}
 
                 {/* </View> */}
             </ScrollView>
@@ -126,7 +138,7 @@ const styles = StyleSheet.create({
     input: {
         fontSize: 14,
         flex: 1,
-        marginLeft:10
+        marginLeft: 10
     },
     backgroundStyle: {
         backgroundColor: 'white',
@@ -137,15 +149,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         borderColor: '#d8d8d8',
         borderWidth: 1,
-        width:"60%",
-        alignSelf:"center"
+        width: "60%",
+        alignSelf: "center"
 
     },
     iconStyle: {
         fontSize: 16,
         alignSelf: 'center',
         marginHorizontal: 15,
-        
+
     },
     imageStyle: {
         height: 200,
@@ -156,12 +168,12 @@ const styles = StyleSheet.create({
     },
     firstButtonStyle: {
         backgroundColor: theme.color.primaryColor,
-        marginTop: 15,
+        marginTop: 10,
         borderRadius: 15,
         alignSelf: "center",
         width: "50%",
         height: 32,
-        
+
     },
     firstButton: {
         fontSize: 15,
@@ -169,33 +181,33 @@ const styles = StyleSheet.create({
         marginTop: 4,
         color: 'white'
     },
-    secondButtonStyle:{
+    secondButtonStyle: {
         backgroundColor: '#0c70d0',
-        marginTop:8,
+        marginTop: 8,
         borderRadius: 15,
         alignSelf: "center",
         width: "50%",
         height: 32,
-        flexDirection:"row"
-        
+        flexDirection: "row"
+
     },
-    secondButton:{
+    secondButton: {
         fontSize: 14,
         alignSelf: "center",
         color: 'white',
-        marginHorizontal:10
+        marginHorizontal: 10
     },
-    facebookiconstyle:{
-        fontSize:20,
-        marginTop:5,
-        marginLeft:10,
+    facebookiconstyle: {
+        fontSize: 20,
+        marginTop: 5,
+        marginLeft: 10,
         // borderWidth:1,
-        color:'white'
+        color: 'white'
     },
-    textStyle:{
-        marginLeft:210,
-        color:'#323232',
-        fontSize:13,
+    textStyle: {
+        marginLeft: 210,
+        color: '#323232',
+        fontSize: 13,
     }
 
 })
