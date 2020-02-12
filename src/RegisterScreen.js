@@ -16,7 +16,7 @@ const RegisterScreen = ({ navigation }) => {
             alert("please provide all the requiremnets")
         }
         else if (password.length < 5) {
-            alert("password should be more than 5")
+            alert("password should be more than 5 characters")
 
         }
         else if (password != confirmPassword) {
@@ -30,8 +30,6 @@ const RegisterScreen = ({ navigation }) => {
 
         }
     }
-
-
     const [username, setUsername] = useState('tayyaba')
     const [email, setEmail] = useState('tayyaba@test.com')
     const [company, setCompany] = useState('Zenveus')

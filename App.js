@@ -23,14 +23,16 @@ import LoginScreen from './src/LoginScreen';
 import LandingScreen from './src/LandingScreen';
 import Landingscreen from './src/LandingScreen';
 import ForgotPassword from './src/ForgotPassword'
+import CategoryScreen from './src/CategoryScreen'
 
 
 const navigator = createStackNavigator({
   Register:  RegisterScreen,
   Login: LoginScreen,   
   Landing:Landingscreen,
-  ForgotPass:ForgotPassword
-},
+  ForgotPass:ForgotPassword,
+  Category:CategoryScreen
+}, 
 {
   initialRouteName:'Landing',
   defaultNavigationOptions:{

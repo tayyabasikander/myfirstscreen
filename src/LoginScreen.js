@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
             // console.log("Response is", apiResponse)
             setApiResponse(response.data);
             setErrorMessage('')
-            navigation.navigate('Landing')
+            navigation.navigate('Category')
         }
         catch (error) {
             console.log(error.response.data.message)

@@ -17,7 +17,6 @@ const ForgotPassword = ({ navigation }) => {
         else {
             //loginApi(email,password)
             navigation.navigate('Landing')
-            // console.log(apiResponse)
         }
     }
 
