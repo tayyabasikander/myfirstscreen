@@ -8,7 +8,7 @@ import ErrorComponent from './components/ErrorComponent'
 
 const LoginScreen = ({ navigation }) => {
 
-    
+
 
     const isEmailValid = (email) => {
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -17,18 +17,20 @@ const LoginScreen = ({ navigation }) => {
 
     const registerUser = () => {
         if (!email || !password) {
-            alert("please provide all the requiremnets")
+
+            setErrorMessage('please provide all the requiremnets')
         }
         else if (isEmailValid(email)) {
-            alert("email not valid")
+            setErrorMessage('Email is not valid')
         }
         else if (password.length < 5) {
-            alert("password should be more than 5 characters")
+            // alert("password should be more than 5 characters")
+            setErrorMessage('password should be more than 5 characters')
 
         }
         else {
-            loginApi(email,password)
-        
+            loginApi(email, password)
+            // navigation.navigate('Category')
             // console.log(apiResponse)
         }
     }
@@ -36,9 +38,10 @@ const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState('test@test.com')
     const [password, setPassword] = useState('123456')
     const [apiResponse, setApiResponse] = useState({})
-    const [errorMessage,setErrorMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const loginApi = async (email,password) => {
+    const loginApi = async (email, password) => {
+        // navigation.navigate('Category')
         setErrorMessage('')
         try {
             const response = await api.post('/login', {
@@ -52,9 +55,9 @@ const LoginScreen = ({ navigation }) => {
             navigation.navigate('Category')
         }
         catch (error) {
-            console.log(error.response.data.message)
-            setErrorMessage(error.response.data.message);
-           
+            console.log(error.response.data.error)
+            setErrorMessage(error.response.data.error);
+
         }
     }
 
@@ -95,14 +98,14 @@ const LoginScreen = ({ navigation }) => {
 
                 {/* FORGOT PASSWORD PORTION */}
                 <TouchableOpacity
-                 onPress={()=>
-                 navigation.navigate('ForgotPass')}
-                 >
+                    onPress={() =>
+                        navigation.navigate('ForgotPass')}
+                >
                     <Text style={styles.textStyle}>Forgot password?</Text>
                 </TouchableOpacity>
 
                 {/* Error component */}
-                <View><ErrorComponent error={errorMessage} /></View> 
+                <View><ErrorComponent error={errorMessage} /></View>
 
                 {/* LOGIN AND FACEBOOK BUTTONS */}
                 <TouchableOpacity style={styles.firstButtonStyle}
@@ -119,15 +122,16 @@ const LoginScreen = ({ navigation }) => {
                     <Entypo name="facebook-with-circle" style={styles.facebookiconstyle} />
                     <Text style={styles.secondButton}>Login Via Facebook</Text>
                 </TouchableOpacity>
+
                 {/* SIGN UP PORTION */}
                 <View style={{ flexDirection: "row", alignSelf: "center", marginTop: 2 }}>
                     <Text>New to App?</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('Register')}>
                         <Text>Sign Up</Text>
                     </TouchableOpacity>
                 </View>
-                {/* </View> */}
 
+                {/* </View> */}
                 {/* </View> */}
             </ScrollView>
         </KeyboardAvoidingView>

@@ -9,19 +9,23 @@ import ErrorComponent from './components/ErrorComponent';
 
 
 const RegisterScreen = ({ navigation }) => {
+    // const isEmailValid = (email) => {
+    //     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    //     return reg.test(email) == 0;
+    // }
 
     const registerUser = () => {
         // console.log({username,email,company,password,confirmPassword})
         if (!username || !email || !company || !password || !confirmPassword) {
-            alert("please provide all the requiremnets")
+            setErrorMessage("please provide all the requiremnets")
         }
         else if (password.length < 5) {
-            alert("password should be more than 5 characters")
+            setErrorMessage("password should be more than 5 characters")
 
         }
         else if (password != confirmPassword) {
 
-            alert("password doesn't match")
+            setErrorMessage("password doesn't match")
         }
 
         else {
@@ -40,7 +44,7 @@ const RegisterScreen = ({ navigation }) => {
 
     const registerApi = async (username,email,company,password,confirmPassword) => {
         setErrorMessage('')
-        console.log(`${email} ${username} ${password} ${company} `)
+        // console.log(`${email} ${username} ${password} ${company} `)
         
         try {
             const response = await api.post('/signup', {
@@ -141,7 +145,7 @@ const RegisterScreen = ({ navigation }) => {
 
                     </View>
                   
-                          {/* <Text style={{alignSelf:"center", color:'red'}}> {errorMessage} </Text> */}
+             
                          <View><ErrorComponent error={errorMessage} /></View> 
                     <TouchableOpacity style={styles.touchableOpacityStyle}
                         // onPress={() => registerUser()}

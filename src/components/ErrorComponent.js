@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 const ErrorComponent = ({error}) => {
-    console.log("Component: ",error)
+    // console.log("Component: ",error)
     return(
         <View>
             <Text style={{alignSelf:"center", color:'red'}}> {error} </Text>

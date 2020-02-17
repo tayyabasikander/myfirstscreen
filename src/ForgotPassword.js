@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, KeyboardAvoidingView, ScrollView, TouchableOpacity } from 'react-native';
 import { theme } from './theme/theme';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import ErrorComponent from './components/ErrorComponent';
 
 
 const ForgotPassword = ({ navigation }) => {
@@ -11,8 +12,16 @@ const ForgotPassword = ({ navigation }) => {
         return reg.test(email) == 0;
     }
     const registerUser = () => {
-        if (isEmailValid(email)) {
-            alert("email not valid")
+         if (!email) {
+
+            setErrorMessage('please provide email')
+        }
+        else if (isEmailValid(email)) {
+            setErrorMessage("email not valid")
+        }
+         else if (!email) {
+
+            setErrorMessage('please provide email')
         }
         else {
             //loginApi(email,password)
@@ -21,6 +30,27 @@ const ForgotPassword = ({ navigation }) => {
     }
 
     const [email, setEmail] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+    // const [errorMessage,setErrorMessage] = useState('')
+    // const registerApi = async (email) => {
+    //     setErrorMessage('')
+        
+    //     try {
+    //         const response = await api.post('/signup', {
+                
+    //             email: email,
+                
+    //         });
+    //         console.log("Response is", response.data)
+         
+    //         setApiResponse(response.data);
+    //         setErrorMessage('')
+    //     }
+    //     catch (error) {
+    //         // console.log(error.response.data.error)
+    //         setErrorMessage(error.response.data.error);
+    //     }
+    // }
     return (
         <View>
             <KeyboardAvoidingView behavior="padding">
@@ -42,6 +72,7 @@ const ForgotPassword = ({ navigation }) => {
                             ></TextInput>
                         </View>
                     </View>
+                    <View><ErrorComponent error={errorMessage} /></View> 
 
                     {/* SUBMIT BUTTON */}
                     <TouchableOpacity style={styles.firstButtonStyle}

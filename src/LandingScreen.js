@@ -35,6 +35,7 @@ const Landingscreen = ({ navigation }) => {
             <View>
                 <TouchableOpacity style={styles.ButtonStyle}
                     onPress={() => {
+                        navigation.navigate('Category')
                     }}>
                     <Text style={styles.moreButtonStyle}>Auditing And Accounting</Text>
                 </TouchableOpacity>

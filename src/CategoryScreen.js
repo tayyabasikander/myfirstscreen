@@ -1,90 +1,156 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Picker } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Picker, ScrollView } from 'react-native'
 import { theme } from './theme/theme';
-import { Ionicons, MaterialCommunityIcons, Entypo } from '@expo/vector-icons';
 
-const CategoryScreen = ({navigation}) => {
+const data = [
+    {
+        "country":"Afghanistan",
+        "cities": [
+            "Herat",
+            "Kabul",
+            "Kandahar",
+
+        ]
+    },
+    {
+        "country":"Albania",
+        "cities": [
+            "Elbasan",
+            "Petran",
+            "Pogradec",
+
+        ]
+    },
+    {
+        "country":"Pakistan",
+        "cities": [
+            "Lahore",
+            "Islamabad",
+            "Karachi",
+
+        ]
+    }
+
+]
+
+const CategoryScreen = ({ navigation }) => {
+
 
     const registerUser = () => {
-      navigation.navigate('Landing')
+        navigation.navigate('Landing')
     }
 
     const showService = (value) => {
-        // alert(value)
         setService(value)
     }
+
     const showCategory = (value) => {
-        // alert(value)
+        
         setCategory(value)
     }
-    const showCountry = (value) => {
-        // alert(value)
-        setCountry(value)
+
+    const showCountry = (value) => {        
+        setCountry(value)       
     }
+
     const showCity = (value) => {
-        // alert(value)
-        setCity(value)
+        setSelectedCity(value)
     }
+
     const [service, setService] = useState('')
-    const [Category,setCategory] = useState('')
-    const [country,setCountry] = useState('')
-    const [City,setCity] = useState('')
+    const [Category, setCategory] = useState('')
+    const [country, setCountry] = useState('')
+    const [selectedCity, setSelectedCity] = useState('')
+    const [countryData, setCountryData] = useState(["India", "Pakistan", "USA"])
+    // const [cityData, setCityData] = useState(cities)
+
+    const countryList = () => {
+        return (data.map((x, i) => {            
+            return (<Picker.Item label={x.country} value={x.country} />)
+        }));
+    }
+
+    const cityList = () => {
+        return (data.map((x) => {
+            if (x.country == country){
+            console.log(x.country)            
+            return (x.cities.map((city)=>{
+                console.log("Cities: ",city)
+                return (<Picker.Item label={city} value={city} />)
+
+            }))
+        }
+        }
+            ))
+      
+      
+    }
+
+
+
+
 
     return (
-        <View>
-            <Image style={styles.imageStyle} source={theme.images.bannerImage} />
-
+        <ScrollView>
             <View>
-                <Picker style={styles.pickerStyle}
-                    selectedValue={service}
-      
-                    onValueChange={showService.bind()}>
-                    <Picker.Item label="Select Service" value="1" ></Picker.Item>
-                    <Picker.Item label="Web Development" value="2"></Picker.Item>
-                    <Picker.Item label="Mobile Application Development" value="3"></Picker.Item>
-                    <Picker.Item label="Back-End Development" value="4"></Picker.Item>
-                </Picker>
+                <Image style={styles.imageStyle} source={theme.images.bannerImage} />
 
-                <Picker  style={styles.pickerStyle}
-                    selectedValue={Category}
+                <View style={{ marginTop: 10 }}>
+                    <View style={styles.pickerContainer}>
+                        <Picker style={styles.pickerStyle}
+                            selectedValue={service}
+                            mode={"dropdown"}
+                            onValueChange={showService.bind()}>
 
-                    onValueChange={showCategory.bind()}>
-                    <Picker.Item label="select Category" value="5"></Picker.Item>
-                    <Picker.Item label="Web Development" value="6"></Picker.Item>
-                    <Picker.Item label="Mobile Application Development" value="7"></Picker.Item>
-                    <Picker.Item label="Back-End Development" value="8"></Picker.Item>
-                </Picker>
-                <Picker  style={styles.pickerStyle}
-                    selectedValue={country}
+                            <Picker.Item label="Select Service" value="1" ></Picker.Item>
+                            <Picker.Item label="Web Development" value="2"></Picker.Item>
+                            <Picker.Item label="Mobile Application Development" value="3"></Picker.Item>
+                            <Picker.Item label="Back-End Development" value="4"></Picker.Item>
 
-                    onValueChange={showCountry.bind()}>
-                    <Picker.Item label="select Country" value="9" ></Picker.Item>
-                    <Picker.Item label="Pakistan" value="0"></Picker.Item>
-                    <Picker.Item label="India" value="10"></Picker.Item>
-                    <Picker.Item label="Iran" value="11"></Picker.Item>
-                </Picker>
+                        </Picker>
+                    </View>
 
-                <Picker  style={styles.pickerStyle}
-                    selectedValue={City}
+                    <View style={styles.pickerContainer}>
+                        <Picker style={styles.pickerStyle}
+                            selectedValue={Category}
+                            mode={"dropdown"}
+                            onValueChange={showCategory.bind()}>
+                            <Picker.Item label="Select Category" value="5"></Picker.Item>
+                            <Picker.Item label="Web Development" value="6"></Picker.Item>
+                            <Picker.Item label="Mobile Application Development" value="7"></Picker.Item>
+                            <Picker.Item label="Back-End Development" value="8"></Picker.Item>
+                        </Picker>
+                    </View>
+                 
 
-                    onValueChange={showCity.bind()}>
-                    <Picker.Item label="select City" value="12" ></Picker.Item>
-                    <Picker.Item label="Karachi" value="13"></Picker.Item>
-                    <Picker.Item label="Sukkur" value="14"></Picker.Item>
-                    <Picker.Item label="Thatta" value="15"></Picker.Item>
-                </Picker>
+                    <View style={styles.pickerContainer}>
+                        <Picker style={styles.pickerStyle}
+                            selectedValue={country}
+                            mode={"dropdown"}
+                            onValueChange={showCountry.bind()}>
+                            {countryList()}
+                        </Picker>
+                    </View>
+                    {/* {cityList()} */}
 
+                    <View style={styles.pickerContainer}>
+                        <Picker style={styles.pickerStyle}
+                            selectedValue={selectedCity}
+                            mode={"dropdown"}
+                            onValueChange={showCity.bind()}>
+                            {cityList()}
+                        </Picker>
+                    </View>
+                </View>
 
+                <TouchableOpacity style={styles.firstButtonStyle}
+                    onPress={() => {
+                        registerUser()
+                    }}>
+                    <Text style={styles.firstButton}>SUBMIT</Text>
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.firstButtonStyle}
-                onPress={() => {
-                    registerUser()
-                }}>
-                <Text style={styles.firstButton}>SUBMIT</Text>
-            </TouchableOpacity>
-
-
-        </View>
+        </ScrollView>
     )
 }
 const styles = StyleSheet.create({
@@ -107,12 +173,23 @@ const styles = StyleSheet.create({
         marginTop: 4,
         color: 'white'
     },
-    pickerStyle:{
-        width:"80%",
-        alignSelf:"center",
-        borderColor: 'black',
+    pickerStyle: {
+        width: "98%",
+        alignSelf: "center",
+        // borderColor: 'black',
+        // borderWidth: 1,
+        // marginTop:15,
+        color: theme.color.primaryColor,
+
+    },
+    pickerContainer: {
+        marginTop: 5,
+        width: "75%",
+        alignSelf: "center",
         borderWidth: 1,
-        color:theme.color.primaryColor
+        borderRadius: 10,
+        borderColor: theme.color.primaryColor,
+        height: 40
     }
 })
 export default CategoryScreen;
