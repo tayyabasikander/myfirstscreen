@@ -9,10 +9,10 @@ import ErrorComponent from './components/ErrorComponent';
 
 
 const RegisterScreen = ({ navigation }) => {
-    // const isEmailValid = (email) => {
-    //     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //     return reg.test(email) == 0;
-    // }
+    const isEmailValid = (email) => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        return reg.test(email) == 0;
+    }
 
     const registerUser = () => {
         // console.log({username,email,company,password,confirmPassword})
@@ -22,6 +22,9 @@ const RegisterScreen = ({ navigation }) => {
         else if (password.length < 5) {
             setErrorMessage("password should be more than 5 characters")
 
+        }
+        else if(isEmailValid(email)){
+            setErrorMessage("email not valid")
         }
         else if (password != confirmPassword) {
 
@@ -77,7 +80,8 @@ const RegisterScreen = ({ navigation }) => {
 
 
                 <View style={styles.container}>
-                    <Image style={styles.imageStyle} source={require('./images/download.jpg')} />
+                <Image style={styles.imageStyle} source={theme.images.bannerImage} />
+
                     <View style={styles.textInputContainer}>
                         <View style={styles.backgroundStyle}>
                             <Feather name="search" size={25} style={styles.iconStyle} />

@@ -42,12 +42,14 @@ const Landingscreen = ({ navigation }) => {
 
                 <TouchableOpacity style={styles.ButtonStyle}
                     onPress={() => {
+                        navigation.navigate('List')
                     }}>
                     <Text style={styles.moreButtonStyle}>Tax</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.ButtonStyle}
                     onPress={() => {
+                        navigation.navigate('Help')
                     }}>
                     <Text style={styles.moreButtonStyle}>Legal Services</Text>
                 </TouchableOpacity>

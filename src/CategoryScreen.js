@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Picker, ScrollView } from 'react-native'
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Picker, ScrollView } from 'react-native'
 import { theme } from './theme/theme';
 
 const data = [
@@ -66,7 +66,7 @@ const CategoryScreen = ({ navigation }) => {
 
     const countryList = () => {
         return (data.map((x, i) => {            
-            return (<Picker.Item label={x.country} value={x.country} />)
+            return (<Picker.Item label={x.country} key={i} value={x.country} />)
         }));
     }
 
@@ -99,7 +99,7 @@ const CategoryScreen = ({ navigation }) => {
                     <View style={styles.pickerContainer}>
                         <Picker style={styles.pickerStyle}
                             selectedValue={service}
-                            mode={"dropdown"}
+                            // mode={"dropdown"}
                             onValueChange={showService.bind()}>
 
                             <Picker.Item label="Select Service" value="1" ></Picker.Item>
@@ -113,7 +113,7 @@ const CategoryScreen = ({ navigation }) => {
                     <View style={styles.pickerContainer}>
                         <Picker style={styles.pickerStyle}
                             selectedValue={Category}
-                            mode={"dropdown"}
+                            // mode={"dropdown"}
                             onValueChange={showCategory.bind()}>
                             <Picker.Item label="Select Category" value="5"></Picker.Item>
                             <Picker.Item label="Web Development" value="6"></Picker.Item>
@@ -123,31 +123,31 @@ const CategoryScreen = ({ navigation }) => {
                     </View>
                  
 
-                    <View style={styles.pickerContainer}>
+                    {/* <View style={styles.pickerContainer}>
                         <Picker style={styles.pickerStyle}
                             selectedValue={country}
-                            mode={"dropdown"}
+                            // mode={"dropdown"}
                             onValueChange={showCountry.bind()}>
                             {countryList()}
                         </Picker>
                     </View>
                     {/* {cityList()} */}
 
-                    <View style={styles.pickerContainer}>
+                    {/* <View style={styles.pickerContainer}>
                         <Picker style={styles.pickerStyle}
                             selectedValue={selectedCity}
-                            mode={"dropdown"}
+                            // mode={"dropdown"}
                             onValueChange={showCity.bind()}>
                             {cityList()}
                         </Picker>
-                    </View>
+                    </View>  */}
                 </View>
 
                 <TouchableOpacity style={styles.firstButtonStyle}
                     onPress={() => {
                         registerUser()
                     }}>
-                    <Text style={styles.firstButton}>SUBMIT</Text>
+                    <Text style={styles.firstButton}>SEARCH</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     },
     firstButtonStyle: {
         backgroundColor: theme.color.primaryColor,
-        marginTop: 10,
+        marginTop: 15,
         borderRadius: 15,
         alignSelf: "center",
         width: "50%",
@@ -174,22 +174,20 @@ const styles = StyleSheet.create({
         color: 'white'
     },
     pickerStyle: {
-        width: "98%",
-        alignSelf: "center",
-        // borderColor: 'black',
-        // borderWidth: 1,
-        // marginTop:15,
+        width: "95%",
+        // alignSelf: "center",
         color: theme.color.primaryColor,
 
     },
     pickerContainer: {
-        marginTop: 5,
-        width: "75%",
+        marginTop: 9,
+        width: "85%",
         alignSelf: "center",
         borderWidth: 1,
         borderRadius: 10,
         borderColor: theme.color.primaryColor,
-        height: 40
+        height: 40,
+        justifyContent:"center"
     }
 })
 export default CategoryScreen;

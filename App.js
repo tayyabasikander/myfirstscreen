@@ -24,6 +24,8 @@ import LandingScreen from './src/LandingScreen';
 import Landingscreen from './src/LandingScreen';
 import ForgotPassword from './src/ForgotPassword'
 import CategoryScreen from './src/CategoryScreen'
+import ListScreen from './src/ListScreen';
+import HelpScreen from './src/HelpScreen';
 
 
 const navigator = createStackNavigator({
@@ -31,7 +33,9 @@ const navigator = createStackNavigator({
   Login: LoginScreen,   
   Landing:Landingscreen,
   ForgotPass:ForgotPassword,
-  Category:CategoryScreen
+  Category:CategoryScreen,
+  List:ListScreen,
+  Help:HelpScreen
 }, 
 {
   initialRouteName:'Landing',
