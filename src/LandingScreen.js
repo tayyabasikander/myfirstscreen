@@ -56,6 +56,7 @@ const Landingscreen = ({ navigation }) => {
 
                 <TouchableOpacity style={styles.ButtonStyle}
                     onPress={() => {
+                        navigation.navigate('Settings')
                     }}>
                     <Text style={styles.moreButtonStyle}>Private</Text>
                 </TouchableOpacity>

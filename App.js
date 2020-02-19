@@ -26,6 +26,9 @@ import ForgotPassword from './src/ForgotPassword'
 import CategoryScreen from './src/CategoryScreen'
 import ListScreen from './src/ListScreen';
 import HelpScreen from './src/HelpScreen';
+import SettingScreen from './src/SettingScreen';
+import CategorySelection from './src/CategorySelection';
+
 
 
 const navigator = createStackNavigator({
@@ -35,7 +38,9 @@ const navigator = createStackNavigator({
   ForgotPass:ForgotPassword,
   Category:CategoryScreen,
   List:ListScreen,
-  Help:HelpScreen
+  Help:HelpScreen,
+  Settings:SettingScreen,
+  CategorySelect:CategorySelection
 }, 
 {
   initialRouteName:'Landing',

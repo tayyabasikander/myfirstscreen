@@ -32,7 +32,7 @@ const RegisterScreen = ({ navigation }) => {
         }
 
         else {
-           
+            // navigation.navigate('CategorySelect')
             registerApi(username,email,company,password)
 
         }
@@ -64,7 +64,7 @@ const RegisterScreen = ({ navigation }) => {
             console.log("Response is", response.data)
             // console.log("Response is", apiResponse)
             setApiResponse(response.data);
-            navigation.navigate('Login')
+            navigation.navigate('CategorySelect')
             setErrorMessage('')
         }
         catch (error) {
