@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Picker, ScrollView } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, Picker, ScrollView, ClippingRectangle } from 'react-native'
 import { theme } from './theme/theme';
 
 const data = [
     {
-        "country":"Afghanistan",
+        "country": "Afghanistan",
         "cities": [
             "Herat",
             "Kabul",
@@ -13,7 +13,7 @@ const data = [
         ]
     },
     {
-        "country":"Albania",
+        "country": "Albania",
         "cities": [
             "Elbasan",
             "Petran",
@@ -22,7 +22,7 @@ const data = [
         ]
     },
     {
-        "country":"Pakistan",
+        "country": "Pakistan",
         "cities": [
             "Lahore",
             "Islamabad",
@@ -34,6 +34,12 @@ const data = [
 ]
 
 const CategoryScreen = ({ navigation }) => {
+    const [service, setService] = useState('')
+    const [Category, setCategory] = useState('')
+    const [country, setCountry] = useState('Pakistan')
+    const [selectedCity, setSelectedCity] = useState('')
+    const [cityList, setCityList] = useState(data.find(x => x.country === country).cities);
+    
 
 
     const registerUser = () => {
@@ -45,45 +51,30 @@ const CategoryScreen = ({ navigation }) => {
     }
 
     const showCategory = (value) => {
-        
+
         setCategory(value)
     }
 
-    const showCountry = (value) => {        
-        setCountry(value)       
+    const showCountry = (value) => {
+        setCountry(value)
+        let cityListTemp = [];
+        data.map(x => {
+            if (x.country == value) {
+                cityListTemp = [...x.cities];
+            }
+        })
+        setCityList(cityListTemp)
     }
 
     const showCity = (value) => {
         setSelectedCity(value)
     }
 
-    const [service, setService] = useState('')
-    const [Category, setCategory] = useState('')
-    const [country, setCountry] = useState('')
-    const [selectedCity, setSelectedCity] = useState('')
-    const [countryData, setCountryData] = useState(["India", "Pakistan", "USA"])
-    // const [cityData, setCityData] = useState(cities)
 
     const countryList = () => {
-        return (data.map((x, i) => {            
-            return (<Picker.Item label={x.country} key={i} value={x.country} />)
-        }));
-    }
-
-    const cityList = () => {
-        return (data.map((x) => {
-            if (x.country == country){
-            console.log(x.country)            
-            return (x.cities.map((city)=>{
-                console.log("Cities: ",city)
-                return (<Picker.Item label={city} value={city} />)
-
-            }))
-        }
-        }
-            ))
-      
-      
+        return data.map((x, i) => {
+            return (<Picker.Item label={x.country} key={x} value={x.country} />)
+        });
     }
 
 
@@ -121,9 +112,9 @@ const CategoryScreen = ({ navigation }) => {
                             <Picker.Item label="Back-End Development" value="8"></Picker.Item>
                         </Picker>
                     </View>
-                 
 
-                    {/* <View style={styles.pickerContainer}>
+
+                    <View style={styles.pickerContainer}>
                         <Picker style={styles.pickerStyle}
                             selectedValue={country}
                             // mode={"dropdown"}
@@ -131,16 +122,16 @@ const CategoryScreen = ({ navigation }) => {
                             {countryList()}
                         </Picker>
                     </View>
-                    {/* {cityList()} */}
 
-                    {/* <View style={styles.pickerContainer}>
+
+                    <View style={styles.pickerContainer}>
                         <Picker style={styles.pickerStyle}
                             selectedValue={selectedCity}
                             // mode={"dropdown"}
                             onValueChange={showCity.bind()}>
-                            {cityList()}
+                            {cityList.map((city) => <Picker.Item label={city} value={city} key={city} />)}
                         </Picker>
-                    </View>  */}
+                    </View>
                 </View>
 
                 <TouchableOpacity style={styles.firstButtonStyle}
@@ -187,7 +178,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderColor: theme.color.primaryColor,
         height: 40,
-        justifyContent:"center"
+        justifyContent: "center"
     }
 })
 export default CategoryScreen;
