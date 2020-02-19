@@ -2,20 +2,79 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity, Picker, ScrollView } from 'react-native'
 import { theme } from './theme/theme';
 
+const data=[
+    {
+        "Category":"Auditing & Accounting",
+        "services":[
+            "Legal & Statutory Audits",
+            "Assurance",
+            "Special Purpose Audits",
+            "Internal Audit",
+            "IFRS",
+            "US GAAP",
+            "Forensic Accounting, Due Diligence Audit& Legal Support",
+            "Regulatory & Compliance Services",
+            "Preparing Accounts & Management Information Systems",
+            "Payroll Administration",
+            "Management Audit",
+            "External Audit",
+            "XBRL",
+            "Others"
+            
+        ]
+    },
+    {
+        "Category": "Tax",
+        "services": [
+           " International & Local Corporate Tax",
+            "Personal Tax Consulting & Planning",
+            "VAT & Indirect Taxes",
+            "Transfer Pricing",
+            "Expat Tax Services",
+            "Tax Disputes",
+            "Taxation Compliance and Consulting",
+            "XBRL",
+            "Others"
+            
+
+        ]
+    },
+]
 
 const CategorySelection = ({ navigation }) => {
 
+    const registerUser = () => {
+        navigation.navigate('Landing')
+    }
+
+
+    const CategoryList = () => {
+        return data.map((x, i) => {
+            return (<Picker.Item label={x.Category} key={x} value={x.Category} />)
+        });
+    }
+
+   
+    const showCategory = (value) => {
+
+        setCategory(value)
+        let serviceListTemp = [];
+        data.map(x => {
+            if (x.Category == value) {
+                ServiceList = [...x.services];
+            }
+        })
+        setServiceList(serviceListTemp)
+    }
+    
     const showService = (value) => {
         setService(value)
     }
 
-    const showCategory = (value) => {
-
-        setCategory(value)
-    }
-
-    const [service, setService] = useState('')
     const [Category, setCategory] = useState('')
+    const [service, setService] = useState('')
+    // const [selectedService, setSelectedService] = useState('')
+    const [ServiceList, setServiceList] = useState(data.find(x => x.Category === Category).services)
 
 
     return (
@@ -30,16 +89,8 @@ const CategorySelection = ({ navigation }) => {
                         selectedValue={Category}
                         mode={"dropdown"}
                         onValueChange={showCategory.bind()}>
-                        <Picker.Item label="Select Category"  value="5"></Picker.Item>
-                        <Picker.Item label="Auditing And accounting" value="6"></Picker.Item>
-                        <Picker.Item label="Tax" value="7"></Picker.Item>
-                        <Picker.Item label="Legal Services " value="8"></Picker.Item>
-                        <Picker.Item label="private " value="9"></Picker.Item>
-                        <Picker.Item label="Litigation & Dispute Resolution " value="10"></Picker.Item>
-                        <Picker.Item label="Administrative & Government Affairs " value="11"></Picker.Item>
-                        <Picker.Item label="Advisory " value="12"></Picker.Item>
-                        <Picker.Item label="Corporate Finance " value="13"></Picker.Item>
-                        <Picker.Item label="Fiduciary & Estate Planning" value="14"></Picker.Item>
+                             {CategoryList()}
+                       
                 
                     </Picker>
                 </View>
@@ -49,10 +100,8 @@ const CategorySelection = ({ navigation }) => {
                         mode={"dropdown"}
                         onValueChange={showService.bind()}>
 
-                        <Picker.Item label="Select Service" value="1" ></Picker.Item>
-                        <Picker.Item label="Web Development" value="2"></Picker.Item>
-                        <Picker.Item label="Mobile Application Development" value="3"></Picker.Item>
-                        <Picker.Item label="Back-End Development" value="4"></Picker.Item>
+                       
+                         {ServiceList.map((service) => <Picker.Item label={service} value={sercvice} key={service} />)}
 
                     </Picker>
                 </View>
@@ -61,15 +110,17 @@ const CategorySelection = ({ navigation }) => {
             </View>
             <TouchableOpacity style={styles.firstButtonStyle}
                     onPress={() => {
-                        // registerUser()
-                    }}>
+                        registerUser()
+                    }
+                    }
+                    >
                     <Text style={styles.firstButton}>SUBMIT</Text>
                 </TouchableOpacity>
         </View>
         </ScrollView>
     )
+                }
 
-}
 const styles = StyleSheet.create({
    imageStyle: {
         height: 200,
@@ -110,4 +161,4 @@ const styles = StyleSheet.create({
         color: 'white'
     },
 })
-export default CategorySelection
+export default CategorySelection;

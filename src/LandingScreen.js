@@ -63,6 +63,7 @@ const Landingscreen = ({ navigation }) => {
 
                 <TouchableOpacity style={styles.ButtonStyle}
                     onPress={() => {
+                        navigation.navigate('CategorySelect')
                     }}>
                     <Text style={styles.moreButtonStyle}>Advisory</Text>
                 </TouchableOpacity>
