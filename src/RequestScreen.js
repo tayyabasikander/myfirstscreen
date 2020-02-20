@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, ScrollView, KeyboardAvoidingView, Image, TouchableOpacity,  } from 'react-native';
 import { theme } from './theme/theme';
+import { FontAwesome,MaterialCommunityIcos,Fontisto,FontAwesome5Brands } from '@expo/vector-icons';
 
 
 const RequestScreen=({navigation})=>{
@@ -9,48 +10,52 @@ return(
          <Image style={styles.imageStyle} source={theme.images.bannerImage} />
          <Text style={styles.textStyle}>Contact directly via</Text>
 
-         <View>
-                <TouchableOpacity style={styles.ButtonStyle}
+         <View >
+                <TouchableOpacity style={[styles.ButtonStyle ,styles.background1]}
                     onPress={() => {
+
                      
                     }}>
+                    <FontAwesome name="whatsapp" style={styles.iconStyle} />
                     <Text style={styles.moreButtonStyle}>Whatsapp</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.ButtonStyle}
+                <TouchableOpacity style={[styles.ButtonStyle,styles.background2]}
                     onPress={() => {
                       
                     }}>
+                         <FontAwesome name="wechat" style={styles.iconStyle} />
+                    {/* <MaterialCommunityIcos name="wechat" style={styles.iconStyle} /> */}
                     <Text style={styles.moreButtonStyle}>WeChat</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.ButtonStyle}
+                <TouchableOpacity style={[styles.ButtonStyle,styles.background3]}
                     onPress={() => {
                        
                     }}>
+                         {/* <Fontisto name="line" type={"Fontisto"} style={styles.iconStyle} /> */}
+                      {/* <FontAwesome5Brands name="line" style={styles.iconStyle} /> */}
+                      <FontAwesome name="line" style={styles.iconStyle} />
+
                     <Text style={styles.moreButtonStyle}>Line</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.ButtonStyle}
+                <TouchableOpacity style={[styles.ButtonStyle,styles.background4]}
                     onPress={() => {
                     
                     }}>
-                    <Text style={styles.moreButtonStyle}>Private</Text>
+                       {/* <FontAwesome5Brands name="rocketchat" style={styles.iconStyle} /> */}
+                    <Text style={styles.moreButtonStyle}>AA Chat</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.ButtonStyle}
+                <TouchableOpacity style={[styles.ButtonStyle,styles.background5]}
                     onPress={() => {
                       
                     }}>
-                    <Text style={styles.moreButtonStyle}>Advisory</Text>
+                     <FontAwesome name="email" style={styles.iconStyle} />
+                    <Text style={styles.moreButtonStyle}>Email</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.ButtonStyle}
-                    onPress={() => {
-                      
-                    }}>
-                    <Text style={styles.moreButtonStyle}>Fiduciary & Estate Planning</Text>
-                </TouchableOpacity>
             </View>
     </View>
 
@@ -68,19 +73,48 @@ const styles=StyleSheet.create({
         marginTop:5
     },
     ButtonStyle: {
-        backgroundColor: theme.color.primaryColor,
+        // backgroundColor: theme.color.primaryColor,
         marginTop: 9,
-        borderRadius: 8,
+        borderRadius: 30,
         alignSelf: "center",
         width: "60%",
         height: 50,
         // marginHorizontal:10
+        // justifyContent:"center",
+        flexDirection:'row'
     },
-    moreButtonStyle: {
-        height: 40,
-        color: 'white',
-        marginTop: 15,
-        alignSelf: "center"
-    }
+    moreButtonStyle:{
+        color:'white',
+        fontsize:18,
+        alignSelf:"center",
+        // justifyContent:"flex-end"
+        // justifyContent:"center"
+        marginLeft:35
+        
+
+    },
+    iconStyle: {
+        fontSize: 25,
+        alignSelf: 'center',
+        color:'white',
+        // justifyContent:"flex-start"
+        marginLeft:20
+    },
+    background1:{
+        backgroundColor:'#009788'
+    },
+    background2:{
+        backgroundColor:'#2ac347'
+    },
+    background3:{
+        backgroundColor:'#099405'
+    },
+    background4:{
+        backgroundColor:'#6f1dfb'
+    },
+    background5:{
+        backgroundColor:'#fe4950'
+    },
+  
 })
 export default RequestScreen;

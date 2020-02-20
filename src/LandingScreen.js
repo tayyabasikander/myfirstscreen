@@ -70,7 +70,7 @@ const Landingscreen = ({ navigation }) => {
 
                 <TouchableOpacity style={styles.ButtonStyle}
                     onPress={() => {
-                        navigation.navigate('Detail')
+                        navigation.navigate('Request')
                     }}>
                     <Text style={styles.moreButtonStyle}>Fiduciary & Estate Planning</Text>
                 </TouchableOpacity>
