@@ -28,6 +28,8 @@ import ListScreen from './src/ListScreen';
 import HelpScreen from './src/HelpScreen';
 import SettingScreen from './src/SettingScreen';
 import CategorySelection from './src/CategorySelection';
+import DetailScreen from './src/DetailScreen';
+import RequestScreen from './src/RequestScreen';
 
 
 
@@ -40,7 +42,9 @@ const navigator = createStackNavigator({
   List:ListScreen,
   Help:HelpScreen,
   Settings:SettingScreen,
-  CategorySelect:CategorySelection
+  CategorySelect:CategorySelection,
+  Detail:DetailScreen,
+  Request:RequestScreen
 }, 
 {
   initialRouteName:'Landing',
